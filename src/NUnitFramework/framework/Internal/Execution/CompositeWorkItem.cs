@@ -7,6 +7,7 @@ using System.Reflection;
 using NUnit.Framework.Internal.Commands;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal.Extensions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NUnit.Framework.Internal.Execution
 {
@@ -256,6 +257,21 @@ namespace NUnit.Framework.Internal.Execution
             }
         }
 
+        private class DependenciesManager
+        {
+            // do this
+            private Dictionary<WorkItem, List<WorkItem>> _dependentTests = new Dictionary<WorkItem, List<WorkItem>>();
+            // TODO work out how to do this with success and failure
+            private Dictionary<WorkItem, int> _numDepedentTestsToRun = new Dictionary<WorkItem, int>();
+
+            Queue<WorkItem> _queuedTests = new Queue<WorkItem>();
+
+            public DependenciesManager(List<WorkItem> workItems, Dictionary<WorkItem, DependenciesInfo> dependenciesInfo)
+            {
+              
+            }
+        }
+
         private void RunChildren()
         {
             if (Test.TestType == "Theory")
@@ -267,6 +283,18 @@ namespace NUnit.Framework.Internal.Execution
 
             _childTestCountdown = new CountdownEvent(childCount);
 
+            Dictionary<WorkItem, DependenciesInfo> mWorkItemToDependenciesInfo = null;
+            // look at work items and check if any of them depend on others
+            foreach (WorkItem workItem in Children)
+            {
+                if (workItem.Test.Properties.ContainsKey(PropertyNames.DependencyInfo))
+                {
+                    mWorkItemToDependenciesInfo ??= new Dictionary<WorkItem, DependenciesInfo>();
+                    // TODO what to do if not dependency info
+                    mWorkItemToDependenciesInfo[workItem] = (DependenciesInfo)workItem.Test.Properties.Get(PropertyNames.DependencyInfo);
+                }
+            }
+
             foreach (WorkItem child in Children)
             {
                 if (CheckForCancellation())
@@ -277,7 +305,7 @@ namespace NUnit.Framework.Internal.Execution
 
                 // In case we run directly, on same thread
                 child.TestWorker = TestWorker;
-
+                // TODO could at this point only dispatch child items with no dependencies
                 Context.Dispatcher.Dispatch(child);
                 childCount--;
             }
@@ -356,6 +384,7 @@ namespace NUnit.Framework.Internal.Execution
             // only blocks its own children.
             lock (_childCompletionLock)
             {
+                // TODO could use this as the opportunity to dispatch dependent child items
                 if (sender is WorkItem childTask)
                 {
                     childTask.Completed -= new EventHandler(OnChildItemCompleted);

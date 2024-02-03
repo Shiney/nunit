@@ -119,6 +119,10 @@ namespace NUnit.Framework.Internal
         /// The optional Order the test will run in
         /// </summary>
         public const string Order = "Order";
+
+        //TODO document
+        public const string DependencyInfo = "DependencyInfo";
+
         #endregion
     }
 }
