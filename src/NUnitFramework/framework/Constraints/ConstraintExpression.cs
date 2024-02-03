@@ -387,11 +387,6 @@ namespace NUnit.Framework.Constraints
         #endregion
 
         /// <summary>
-        /// Returns a constraint that tests whether an object graph is serializable in binary format.
-        /// </summary>
-        public BinarySerializableConstraint BinarySerializable => (BinarySerializableConstraint)Append(new BinarySerializableConstraint());
-
-        /// <summary>
         /// Returns a constraint that tests whether an object graph is serializable in XML format.
         /// </summary>
         public XmlSerializableConstraint XmlSerializable => (XmlSerializableConstraint)Append(new XmlSerializableConstraint());
@@ -633,7 +628,7 @@ namespace NUnit.Framework.Constraints
         /// Returns a new <see cref="SomeItemsConstraint"/> checking for the
         /// presence of a particular object in the collection.
         /// </summary>
-        public SomeItemsConstraint Member(object expected)
+        public SomeItemsConstraint Member(object? expected)
         {
             return (SomeItemsConstraint)Append(new SomeItemsConstraint(new EqualConstraint(expected)));
         }
@@ -652,7 +647,7 @@ namespace NUnit.Framework.Constraints
         /// <see cref="Contains(string)"/> overload.
         /// </para>
         /// </summary>
-        public SomeItemsConstraint Contains(object expected)
+        public SomeItemsConstraint Contains(object? expected)
         {
             return (SomeItemsConstraint)Append(new SomeItemsConstraint(new EqualConstraint(expected)));
         }
@@ -668,7 +663,7 @@ namespace NUnit.Framework.Constraints
         /// <see cref="Contains(object)"/> overload.
         /// </para>
         /// </summary>
-        public ContainsConstraint Contains(string expected)
+        public ContainsConstraint Contains(string? expected)
         {
             return (ContainsConstraint)Append(new ContainsConstraint(expected));
         }
@@ -677,7 +672,7 @@ namespace NUnit.Framework.Constraints
         /// Returns a new <see cref="SomeItemsConstraint"/> checking for the
         /// presence of a particular object in the collection.
         /// </summary>
-        public SomeItemsConstraint Contain(object expected)
+        public SomeItemsConstraint Contain(object? expected)
         {
             return Contains(expected);
         }
@@ -690,7 +685,7 @@ namespace NUnit.Framework.Constraints
         /// since any other type implies that we are looking for a
         /// collection member.
         /// </summary>
-        public ContainsConstraint Contain(string expected)
+        public ContainsConstraint Contain(string? expected)
         {
             return Contains(expected);
         }
@@ -879,6 +874,15 @@ namespace NUnit.Framework.Constraints
                 expected = new object?[] { null };
             }
 
+            return (AnyOfConstraint)Append(new AnyOfConstraint(expected));
+        }
+
+        /// <summary>
+        /// Returns a constraint that tests if an item is equal to any of expected values
+        /// </summary>
+        /// <param name="expected">Expected values</param>
+        public AnyOfConstraint AnyOf(ICollection expected)
+        {
             return (AnyOfConstraint)Append(new AnyOfConstraint(expected));
         }
 

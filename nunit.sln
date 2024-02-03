@@ -18,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CHANGES.md = CHANGES.md
 		CONTRIBUTING.md = CONTRIBUTING.md
 		src\NUnitFramework\Directory.Build.props = src\NUnitFramework\Directory.Build.props
+		src\NUnitFramework\Directory.Packages.props = src\NUnitFramework\Directory.Packages.props
 		global.json = global.json
 		LICENSE.txt = LICENSE.txt
 		NOTICES.md = NOTICES.md
@@ -70,6 +71,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\continuous_integration.yml = .github\workflows\continuous_integration.yml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{08744334-2350-4885-B57E-347010A27ABB}"
+	ProjectSection(SolutionItems) = preProject
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "windows-tests", "src\NUnitFramework\windows-tests\windows-tests.csproj", "{7C19F745-B5F0-4A3A-B545-1E1DF4FA1F78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,6 +133,10 @@ Global
 		{59DC5039-5FCD-4C0C-AC92-7F06610136D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59DC5039-5FCD-4C0C-AC92-7F06610136D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59DC5039-5FCD-4C0C-AC92-7F06610136D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C19F745-B5F0-4A3A-B545-1E1DF4FA1F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C19F745-B5F0-4A3A-B545-1E1DF4FA1F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C19F745-B5F0-4A3A-B545-1E1DF4FA1F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C19F745-B5F0-4A3A-B545-1E1DF4FA1F78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
